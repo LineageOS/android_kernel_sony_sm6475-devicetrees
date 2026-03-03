@@ -86,9 +86,6 @@ properties:
    qcom,smp2p_map_wlan_1_in:
      description: Represents the in smp2p to wlan driver from modem.
 
-   pin-ctrl-support:
-     description: Represents pin_ctrl support is present or not.
-
 required:
   - compatible
   - reg

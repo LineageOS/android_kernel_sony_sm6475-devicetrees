@@ -7,7 +7,7 @@
 
 &soc {
 };
-
+/*
 &qupv3_se9_i2c {
 	status = "disabled";
 };
@@ -49,3 +49,4 @@
 		qcom,touch-environment = "pvm";
 	};
 };
+*/

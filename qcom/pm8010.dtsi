@@ -17,6 +17,7 @@
 		reg = <0xc SPMI_USID>;
 		#address-cells = <1>;
 		#size-cells = <0>;
+		status = "disabled";
 
 		pmic-ecid@100 {
 			compatible = "qcom,pmic-ecid";
@@ -37,6 +38,7 @@
 		reg = <0xd SPMI_USID>;
 		#address-cells = <1>;
 		#size-cells = <0>;
+		status = "disabled";
 
 		pmic-ecid@100 {
 			compatible = "qcom,pmic-ecid";

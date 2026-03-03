@@ -17,7 +17,7 @@
 		reg = <4 SPMI_USID>;
 		#address-cells = <1>;
 		#size-cells = <0>;
-
+		status = "disabled";
 		pmr735a_tz: qcom,temp-alarm@a00 {
 			compatible = "qcom,spmi-temp-alarm";
 			reg = <0xa00>;

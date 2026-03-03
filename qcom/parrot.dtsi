@@ -27,6 +27,17 @@
 	#address-cells = <2>;
 	#size-cells = <2>;
 
+	chosen: chosen {
+		stdout-path = "/soc/qcom,qup_uart@98c000:115200n8";
+		bootargs = "loglevel=6 log_buf_len=256K kernel.panic_on_rcu_stall=1 loop.max_part=7 pcie_ports=compat allow_mismatched_32bit_el0 kasan=off rcupdate.rcu_expedited=1 rcu_nocbs=0-7 ftrace_dump_on_oops pstore.compress=none kpti=0 swiotlb=noforce cgroup.memory=nokmem,nosocket kswapd_per_node=2 slub_debug=- allow_file_spec_access cpufreq.default_governor=performance transparent_hugepage=never page_poison=on can.stats_timer=0 disable_dma32=on android12_only.will_be_removed_soon.memblock_nomap_remove=on cgroup_disable=pressure fw_devlink.strict=1";
+	};
+
+	memory { device_type = "memory"; reg = <0 0 0 0>; };
+
+	ddr-regions { };
+
+	reserved_memory: reserved-memory { };
+
 	aliases: aliases {
 		mmc0 = &sdhc_1; /*SDC1 eMMC slot*/
 		mmc1 = &sdhc_2; /* SDC2 SD card slot */
@@ -37,27 +48,6 @@
 		i2c1 = &qupv3_se2_i2c;
 		i2c2 = &qupv3_se6_i2c;
 		i2c3 = &qupv3_se9_i2c;
-	};
-
-	chosen: chosen {
-		stdout-path = "serial0:115200n8";
-		bootargs = "loglevel=6 log_buf_len=256K kernel.panic_on_rcu_stall=1 loop.max_part=7 pcie_ports=compat allow_mismatched_32bit_el0 kasan=off rcupdate.rcu_expedited=1 rcu_nocbs=0-7 ftrace_dump_on_oops pstore.compress=none kpti=0 swiotlb=noforce cgroup.memory=nokmem,nosocket kswapd_per_node=2 slub_debug=- allow_file_spec_access cpufreq.default_governor=performance transparent_hugepage=never page_poison=on can.stats_timer=0 disable_dma32=on android12_only.will_be_removed_soon.memblock_nomap_remove=on cgroup_disable=pressure fw_devlink.strict=1 restrict_cma_redirect=false";
-	};
-
-	memory { device_type = "memory"; reg = <0 0 0 0>; };
-
-	ddr-regions { };
-
-	reserved_memory: reserved-memory { };
-
-	mem-offline {
-		compatible = "qcom,mem-offline";
-		offline-sizes = <0x1 0x40000000 0x0 0x40000000>,
-				<0x1 0xc0000000 0x0 0x80000000>,
-				<0x2 0xc0000000 0x1 0x40000000>;
-		granule = <512>;
-		mboxes = <&qmp_aop 0>;
-		status = "disabled";
 	};
 
 	qcom,gunyah-panic-notifier {
@@ -365,6 +355,17 @@
 
 	soc: soc { };
 
+        hwinfo:HardwareInfo {
+        	compatible = "huaqin,HardwareInfo";
+    		pcb_type_gpios0 = <&tlmm 126 0 >;
+    		pcb_type_gpios1 = <&tlmm 131 0 >;
+    		pcb_type_gpios2 = <&tlmm 132 0 >;
+    		sd_ufs_card_det_gpio = <&tlmm 107 0 >;
+    		pinctrl-names = "default";
+		pinctrl-0=<&pcb_type_default>;
+    		status = "okay";
+	};
+
 };
 
 &firmware {
@@ -400,12 +401,6 @@
 		alignment = <0x0 0x400000>;
 		size = <0x0 0x2000000>;
 		linux,cma-default;
-	};
-
-	ramoops_mem: ramoops_region {
-		alloc-ranges = <0x0 0x00000000 0xffffffff 0xffffffff>;
-		size = <0x0 0x200000>;
-		no-map;
 	};
 
 	adsp_mem_heap: adsp_heap_region {
@@ -466,7 +461,7 @@
 		alloc-ranges = <0x0 0x00000000 0x0 0xffffffff>;
 		reusable;
 		alignment = <0x0 0x400000>;
-		size = <0x0 0x1400000>;
+		size = <0x0 0x2800000>;
 	};
 
 	qseecom_ta_mem: qseecom_ta_region {
@@ -474,9 +469,39 @@
 		alloc-ranges = <0x0 0x00000000 0x0 0xffffffff>;
 		reusable;
 		alignment = <0x0 0x400000>;
-		size = <0x0 0x1000000>;
+		size = <0x0 0x2000000>;
 	};
 
+	debug_region: debug_region@ffc00000 {
+		compatible = "removed-dma-pool", "qcom,debug_memory";
+		no-map;
+		reg = <0 0xffc00000 0 0xc0000>;
+		label = "debug_mem";
+	};
+
+	last_log_region: last_log_region@ffcc0000 {
+		compatible = "removed-dma-pool", "qcom,last_log_memory";
+		no-map;
+		reg = <0 0xffcc0000 0 0x40000>;
+		label = "last_log";
+		phandle = "log";
+	};
+
+	ramoops_mem: ramoops_region@ffd00000 {
+		compatible = "removed-dma-pool", "ramoops";
+		reg = <0 0xffd00000 0 0xc0000>;
+		record-size = <0x1000>;
+		console-size = <0x40000>;
+		pmsg-size = <0x40000>;
+		ftrace-size = <0x0>;
+	};
+
+	rdtag_store_region: rdtag_store_region@ffdc0000 {
+		compatible = "removed-dma-pool", "rdtag_store_region";
+		no-map;
+		reg = <0 0xffdc0000 0 0x40000>;
+		label = "rdtag_store_region";
+	};
 };
 
 &soc {
@@ -1560,8 +1585,8 @@
 		interrupt-names = "hc_irq", "pwr_irq";
 
 		bus-width = <4>;
-		no-sdio;
-		no-mmc;
+		/*no-sdio;
+		no-mmc;*/
 		qcom,restore-after-cx-collapse;
 
 		clocks = <&gcc GCC_SDCC2_AHB_CLK>,
@@ -2553,6 +2578,7 @@
 			#address-cells = <2>;
 			#size-cells = <0>;
 			qcom,can-sleep;
+			status = "disabled";
 		};
 	};
 
@@ -2692,6 +2718,11 @@
 		status = "ok";
 	};
 
+	last_logs@ffcc0000 {
+		compatible = "rd_last_logs";
+		label = "last_logs";
+		memory-region = "log";
+	};
 };
 
 #include "diwali-gdsc.dtsi"
@@ -2794,6 +2825,24 @@
 #include "parrot-dma-heaps.dtsi"
 #include "msm-arm-smmu-parrot.dtsi"
 #include "parrot-walt.dtsi"
+
+&tlmm {
+	pcb_type_pins: pcb_type_pins {
+		pcb_type_default: pcb_type_default {
+			mux {
+				pins = "gpio126";
+				function = "gpio";
+			};
+
+			config {
+				pins = "gpio126";
+				drive-strength = <2>;
+				bias-pull-down;         /* PULL DOWN */
+				input-enable;
+			};
+		};
+	};
+};
 
 &qupv3_se3_2uart {
 	status = "ok";

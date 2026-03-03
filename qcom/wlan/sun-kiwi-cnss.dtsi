@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: BSD-3-Clause
 
 /*
- * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ * Copyright (c) 2024 Qualcomm Innovation Center, Inc. All rights reserved.
  */
 
 #include <dt-bindings/interconnect/qcom,sun.h>
@@ -198,8 +198,6 @@
 };
 
 &pcie0_rp {
-	#address-cells = <3>;
-	#size-cells = <2>;
 
 	cnss_pci0: cnss_pci0 {
 		reg = <0 0 0 0 0>;
