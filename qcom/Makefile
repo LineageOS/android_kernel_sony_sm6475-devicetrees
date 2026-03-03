@@ -6,6 +6,8 @@
 # Combined dtb target is also generated using the fdt_overlay tool.
 # dtb-y += <base>-<board>.dtb
 
+ifneq (,)
+
 add-overlays = $(foreach o,$1,$(foreach b,$2,$(eval $(basename $b)-$(basename $o)-dtbs = $b $o) $(basename $b)-$(basename $o).dtb))
 
 # sun-dtb-y is list of DTBs to install when doing non-overlay build
@@ -76,8 +78,8 @@ sun-dtb-$(CONFIG_ARCH_TUNA) +=  \
 sun-overlays-dtb-$(CONFIG_ARCH_TUNA) += $(TUNA_BOARDS) $(NOAPQ_TUNA_BOARDS) $(TUNA_BASE_DTB) $(TUNA_APQ_BASE_DTB)
 dtb-y += $(sun-dtb-y)
 
-KERA_BASE_DTB += kera.dtb kera-iot.dtb kera-qmb.dtb
-KERA_APQ_BASE_DTB += kerap.dtb kerap-iot.dtb kerap-qna.dtb
+KERA_BASE_DTB += kera.dtb
+KERA_APQ_BASE_DTB += kerap.dtb
 KERA_BOARDS += \
 		kera-atp-overlay.dtbo \
 		kera-mtp-qca6750-ufs4-overlay.dtbo \
@@ -91,7 +93,6 @@ KERA_BOARDS += \
 		kera-cdp-qca6750-ufs4-overlay.dtbo \
 		kera-iot-cdp-qca6750-ufs4-overlay.dtbo \
 		kera-cdp-qca6750-ufs4-slt-overlay.dtbo \
-		kera-cdp-emmc-overlay.dtbo \
 		kera-qrd-wcn7750-ufs4-overlay.dtbo \
 		kera-qrd-wcn7750-ufs2-overlay.dtbo \
 		kera-qrd-wcn7750-ufs3-overlay.dtbo \
@@ -101,12 +102,7 @@ KERA_BOARDS += \
 		kera-rcm-qca6750-ufs3-overlay.dtbo \
 		kera-rcm-wcn7750-ufs2-overlay.dtbo \
 		kera-rcm-wcn7750-ufs3-overlay.dtbo \
-		kera-rcm-wcn7750-ufs4-overlay.dtbo \
-		kera-rcm-wcn7750-ufs3-no-display-overlay.dtbo \
-		kera-rcm-wcn7750-ufs4-no-display-overlay.dtbo \
-		kera-rcm-wcn7750-emmc-no-display-overlay.dtbo \
-		kera-idp-emmc-overlay.dtbo \
-		kera-idp-ufs3-overlay.dtbo
+		kera-rcm-wcn7750-ufs4-overlay.dtbo
 
 NOAPQ_KERA_BOARDS += \
 		kera-rumi-overlay.dtbo
@@ -374,6 +370,10 @@ dtb-y += $(parrot_tuivm-dtb-y)
 
 endif
 endif
+
+endif
+
+dtb-y += parrot-qrd-wcn6755-overlay.dtbo parrot.dtb
 
 always-y        := $(dtb-y)
 subdir-y        := $(dts-dirs)

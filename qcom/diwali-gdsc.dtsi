@@ -60,7 +60,7 @@
 		reg = <0xadf4004 0x4>;
 		regulator-name = "cam_cc_camss_top_gdsc";
 		qcom,retain-regs;
-		status = "disabled";
+		status = "ok";
 	};
 
 	/* DISP_CC GDSCs */

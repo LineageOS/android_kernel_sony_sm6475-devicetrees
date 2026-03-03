@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: BSD-3-Clause
 /*
- * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ * Copyright (c) 2024-2025, Qualcomm Innovation Center, Inc. All rights reserved.
  */
 
 #include "sun-qrd-sku1-v8.dtsi"
@@ -127,8 +127,4 @@
 			};
 		};
 	};
-};
-
-&pcie0 {
-	qcom,no-client-based-bw-voting;
 };

@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: BSD-3-Clause
 
 /*
- * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+ * Copyright (c) 2024 Qualcomm Innovation Center, Inc. All rights reserved.
  */
 
-#include <dt-bindings/interconnect/qcom,x1e80100-rpmh.h>
+#include <dt-bindings/interconnect/qcom,x1e80100.h>
 
 &tlmm {
 	cnss_pins {
