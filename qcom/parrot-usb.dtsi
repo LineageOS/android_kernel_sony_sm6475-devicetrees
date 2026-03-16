@@ -75,6 +75,8 @@
 			snps,hird-threshold = /bits/ 8 <0x0>;
 			snps,is-utmi-l1-suspend;
 			snps,dis-u1-entry-quirk;
+			snps,usb2-gadget-lpm-disable;
+			snps,usb2-lpm-disable;
 			snps,dis-u2-entry-quirk;
 			snps,dis_u2_susphy_quirk;
 			snps,dis_u3_susphy_quirk;

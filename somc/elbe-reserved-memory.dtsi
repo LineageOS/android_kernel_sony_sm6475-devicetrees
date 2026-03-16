@@ -1,0 +1,58 @@
+&adsp_mem {
+	reg = <0x0 0x86c00000 0x0 0x2800000>;
+};
+
+&video_mem {
+	reg = <0x0 0x9a200000 0x0 0x700000>;
+};
+
+&qseecom_mem {
+	size = <0x0 0x2800000>;
+};
+
+&qseecom_ta_mem {
+	size = <0x0 0x2000000>;
+};
+
+&reserved_memory {
+	/delete-node/ ramoops_region;
+
+	debug_region: debug_region@ffc00000 {
+		compatible = "removed-dma-pool", "qcom,debug_memory";
+		no-map;
+		reg = <0 0xffc00000 0 0xc0000>;
+		label = "debug_mem";
+	};
+
+	last_log_region: last_log_region@ffcc0000 {
+		compatible = "removed-dma-pool", "qcom,last_log_memory";
+		no-map;
+		reg = <0 0xffcc0000 0 0x40000>;
+		label = "last_log";
+		phandle = "log";
+	};
+
+	ramoops_mem: ramoops_region@ffd00000 {
+		compatible = "removed-dma-pool", "ramoops";
+		reg = <0 0xffd00000 0 0xc0000>;
+		record-size = <0x1000>;
+		console-size = <0x40000>;
+		pmsg-size = <0x40000>;
+		ftrace-size = <0x0>;
+	};
+
+	rdtag_store_region: rdtag_store_region@ffdc0000 {
+		compatible = "removed-dma-pool", "rdtag_store_region";
+		no-map;
+		reg = <0 0xffdc0000 0 0x40000>;
+		label = "rdtag_store_region";
+	};
+};
+
+&soc {
+	last_logs@ffcc0000 {
+		compatible = "rd_last_logs";
+		label = "last_logs";
+		memory-region = "log";
+	};
+};
