@@ -62,6 +62,16 @@
 	qcom,platform-reset-gpio = <&tlmm 98 0>;
 };
 
+&dsi_samsung_amoled_cmd {
+        qcom,panel-supply-entries = <&dsi_panel_pwr_supply_amoled>;
+        qcom,mdss-dsi-bl-pmic-control-type = "bl_ctrl_dcs";
+        qcom,mdss-dsi-bl-min-level = <4>;
+        qcom,mdss-dsi-bl-max-level = <4095>;
+        qcom,mdss-brightness-max-level = <4095>;
+        qcom,platform-reset-gpio = <&tlmm 127 0>;
+        somc,disp-err-flag-gpio = <&tlmm 62 0>;
+};
+
 &dsi_sim_cmd {
 	qcom,panel-supply-entries = <&dsi_panel_pwr_supply_sim>;
 	qcom,mdss-dsi-bl-pmic-control-type = "bl_ctrl_dcs";
@@ -85,20 +95,16 @@
 
 &sde_dsi {
 	vddio-supply = <&display_panel_vddio>;
+	vddr-supply = <&display_panel_vddr>;
 	vci-supply = <&L4E>;
-	ibb-supply = <&display_panel_ibb>;
-	extvdd-supply = <&display_panel_extvdd>;
+//	ibb-supply = <&display_panel_ibb>;
+//	extvdd-supply = <&display_panel_extvdd>;
 
-	qcom,dsi-default-panel = <&dsi_vtdr6130_amoled_cmd>;
+	qcom,dsi-default-panel = <&dsi_samsung_amoled_cmd>;
 };
 
-&qupv3_se9_spi {
-	goodix-berlin@0 {
-		panel = <&dsi_vtdr6130_amoled_cmd
-			&dsi_vtdr6130_amoled_video
-			&dsi_vtdr6130_amoled_qsync_144hz_cmd
-			&dsi_vtdr6130_amoled_qsync_144hz_video
-			&dsi_vtdr6130_amoled_120hz_cmd
-			&dsi_vtdr6130_amoled_90hz_video>;
+&qupv3_se9_i2c {
+	focaltech@38 {
+		panel = <&dsi_samsung_amoled_cmd>;
 	};
 };
