@@ -68,7 +68,7 @@
 	pinctrl-0 = <&sdc2_on>;
 	pinctrl-1 = <&sdc2_off>;
 
-	cd-gpios = <&tlmm 107 GPIO_ACTIVE_LOW>;
+	cd-gpios = <&tlmm 107 GPIO_ACTIVE_HIGH>;
 };
 
 &ufsphy_mem {
@@ -125,7 +125,7 @@
 	status = "ok";
 };
 
-&qupv3_se9_spi {
+/*&qupv3_se9_spi {
 	#address-cells = <1>;
 	#size-cells = <0>;
 	status = "ok";
@@ -168,4 +168,4 @@
 		qts,trusted-touch-vm-gpio-list = <&tlmm 10 0 &tlmm 11 0 &tlmm 12 0
 			&tlmm 13 0 &tlmm 64 0 &tlmm 65 0x2008>;
 	};
-};
+};*/
