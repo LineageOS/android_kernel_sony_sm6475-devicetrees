@@ -1,0 +1,20 @@
+&pm6150l_gpios {
+	get_stageid_adc_kb {
+		get_stageid_adc_kb_default: get_stageid_adc_kb_default {
+			pins = "gpio6";
+			bias-high-impedance;
+		};
+	};
+
+	display_panel_supply_ctrl {
+		display_panel_vddr_default: display_panel_vddr_default {
+			pins = "gpio11";
+			function = "normal";
+			input-disable;
+			output-enable;
+			bias-disable;
+			power-source = <0>;
+			qcom,drive-strength = <2>;
+		};
+	};
+};
