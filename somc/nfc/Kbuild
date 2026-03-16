@@ -1,0 +1,13 @@
+dtbo-y += elbe-nfc.dtbo
+
+quiet_cmd_copy_dtbo = COPY    $@
+      cmd_copy_dtbo = mkdir -p $(dir $@) && cp -f $< $@
+
+targets += ../../qcom/nfc/elbe-nfc.dtbo
+
+$(obj)/../../qcom/nfc/elbe-nfc.dtbo: $(obj)/elbe-nfc.dtbo FORCE
+	$(call if_changed,copy_dtbo)
+
+always-y	:= $(dtb-y) $(dtbo-y) ../../qcom/nfc/elbe-nfc.dtbo
+subdir-y	:= $(dts-dirs)
+clean-files	:= *.dtb *.dtbo

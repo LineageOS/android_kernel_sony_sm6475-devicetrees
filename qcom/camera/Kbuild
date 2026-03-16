@@ -1,5 +1,7 @@
 DTC_INCLUDE += $(srctree)/../sm6475-modules/qcom/opensource/camera-kernel
 
+ifneq (,)
+
 ifeq ($(CONFIG_ARCH_CANOE), y)
 include $(srctree)/$(src)/config/canoe.mk
 endif
@@ -26,6 +28,8 @@ endif
 
 ifeq ($(CONFIG_ARCH_WAIPIO), y)
 include $(srctree)/$(src)/config/waipio.mk
+endif
+
 endif
 
 always-y	:= $(dtbo-y) $(dtb-y)
