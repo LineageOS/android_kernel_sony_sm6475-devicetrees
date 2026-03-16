@@ -30,6 +30,19 @@
 				};
 		};
 
+		key_cam_default: key_cam_default {
+			mux {
+				pins = "gpio128";
+				function = "gpio";
+			};
+
+			config {
+				pins = "gpio128";
+				drive-strength = <2>;
+				bias-pull-up;
+			};
+	    };
+
 		pri_aux_pcm_clk {
 			pri_aux_pcm_clk_sleep: pri_aux_pcm_clk_sleep {
 				mux {
@@ -542,6 +555,7 @@
 				pins = "gpio22", "gpio23";
 				drive-strength = <2>;
 				bias-pull-down;
+				input-enable;
 			};
 		};
 	};
@@ -1658,18 +1672,6 @@
 				};
 			};
 
-			ts_spi_active: ts_spi_active {
-				mux {
-					pins = "gpio64", "gpio65";
-					function = "gpio";
-				};
-
-				config {
-					pins = "gpio64", "gpio65";
-					drive-strength = <8>;
-					bias-pull-up;
-				};
-			};
 		};
 
 		pmx_ts_reset_suspend {
@@ -1681,23 +1683,11 @@
 
 				config {
 					pins = "gpio12";
-					drive-strength = <2>;
+					drive-strength = <8>;
 					bias-pull-down;
 				};
 			};
 
-			ts_spi_reset_suspend: ts_spi_reset_suspend {
-				mux {
-					pins = "gpio64";
-					function = "gpio";
-				};
-
-				config {
-					pins = "gpio64";
-					drive-strength = <2>;
-					bias-pull-down;
-				};
-			};
 		};
 
 		pmx_ts_int_suspend {
@@ -1709,23 +1699,11 @@
 
 				config {
 					pins = "gpio13";
-					drive-strength = <2>;
+					drive-strength = <8>;
 					bias-pull-down;
 				};
 			};
 
-			ts_spi_int_suspend: ts_spi_int_suspend {
-				mux {
-					pins = "gpio65";
-					function = "gpio";
-				};
-
-				config {
-					pins = "gpio65";
-					drive-strength = <2>;
-					bias-pull-down;
-				};
-			};
 		};
 
 		pmx_ts_release {
@@ -1737,20 +1715,7 @@
 
 				config {
 					pins = "gpio12", "gpio13";
-					drive-strength = <2>;
-					bias-disable;
-				};
-			};
-
-			ts_spi_release: ts_spi_release {
-				mux {
-					pins = "gpio64", "gpio65";
-					function = "gpio";
-				};
-
-				config {
-					pins = "gpio64", "gpio65";
-					drive-strength = <2>;
+					drive-strength = <8>;
 					bias-disable;
 				};
 			};
@@ -1823,19 +1788,19 @@
 			clk {
 				pins = "sdc2_clk";
 				bias-disable;
-				drive-strength = <16>;
+				drive-strength = <10>;
 			};
 
 			cmd {
 				pins = "sdc2_cmd";
 				bias-pull-up;
-				drive-strength = <10>;
+				drive-strength = <8>;
 			};
 
 			data {
 				pins = "sdc2_data";
 				bias-pull-up;
-				drive-strength = <10>;
+				drive-strength = <8>;
 			};
 
 			sd-cd {

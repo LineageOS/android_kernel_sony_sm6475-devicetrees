@@ -8,6 +8,7 @@
 #include <dt-bindings/regulator/qcom,rpmh-regulator-levels.h>
 
 #include "parrot-camera-sensor-qrd.dtsi"
+#include "regulator-wl2868c.dtsi"
 / {
 	model = "Qualcomm Technologies, Inc. Parrot QRD";
 	compatible = "qcom,parrot";
