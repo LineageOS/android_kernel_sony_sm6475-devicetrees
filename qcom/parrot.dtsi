@@ -49,7 +49,7 @@
 	ddr-regions { };
 
 	reserved_memory: reserved-memory { };
-
+/*
 	mem-offline {
 		compatible = "qcom,mem-offline";
 		offline-sizes = <0x1 0x40000000 0x0 0x40000000>,
@@ -59,7 +59,7 @@
 		mboxes = <&qmp_aop 0>;
 		status = "disabled";
 	};
-
+*/
 	qcom,gunyah-panic-notifier {
 		compatible = "qcom,gh-panic-notifier";
 		qcom,primary-vm;
@@ -402,12 +402,6 @@
 		linux,cma-default;
 	};
 
-	ramoops_mem: ramoops_region {
-		alloc-ranges = <0x0 0x00000000 0xffffffff 0xffffffff>;
-		size = <0x0 0x200000>;
-		no-map;
-	};
-
 	adsp_mem_heap: adsp_heap_region {
 		compatible = "shared-dma-pool";
 		alloc-ranges = <0x0 0x00000000 0x0 0xffffffff>;
@@ -466,7 +460,7 @@
 		alloc-ranges = <0x0 0x00000000 0x0 0xffffffff>;
 		reusable;
 		alignment = <0x0 0x400000>;
-		size = <0x0 0x1400000>;
+		size = <0x0 0x2800000>;
 	};
 
 	qseecom_ta_mem: qseecom_ta_region {
@@ -474,9 +468,39 @@
 		alloc-ranges = <0x0 0x00000000 0x0 0xffffffff>;
 		reusable;
 		alignment = <0x0 0x400000>;
-		size = <0x0 0x1000000>;
+		size = <0x0 0x2000000>;
 	};
 
+	debug_region: debug_region@ffc00000 {
+		compatible = "removed-dma-pool", "qcom,debug_memory";
+		no-map;
+		reg = <0 0xffc00000 0 0xc0000>;
+		label = "debug_mem";
+	};
+
+	last_log_region: last_log_region@ffcc0000 {
+		compatible = "removed-dma-pool", "qcom,last_log_memory";
+		no-map;
+		reg = <0 0xffcc0000 0 0x40000>;
+		label = "last_log";
+		phandle = "log";
+	};
+
+	ramoops_mem: ramoops_region@ffd00000 {
+		compatible = "removed-dma-pool", "ramoops";
+		reg = <0 0xffd00000 0 0xc0000>;
+		record-size = <0x1000>;
+		console-size = <0x40000>;
+		pmsg-size = <0x40000>;
+		ftrace-size = <0x0>;
+	};
+
+	rdtag_store_region: rdtag_store_region@ffdc0000 {
+		compatible = "removed-dma-pool", "rdtag_store_region";
+		no-map;
+		reg = <0 0xffdc0000 0 0x40000>;
+		label = "rdtag_store_region";
+	};
 };
 
 &soc {
@@ -1560,8 +1584,8 @@
 		interrupt-names = "hc_irq", "pwr_irq";
 
 		bus-width = <4>;
-		no-sdio;
-		no-mmc;
+		/*no-sdio;
+		no-mmc;*/
 		qcom,restore-after-cx-collapse;
 
 		clocks = <&gcc GCC_SDCC2_AHB_CLK>,
@@ -2553,6 +2577,7 @@
 			#address-cells = <2>;
 			#size-cells = <0>;
 			qcom,can-sleep;
+			status = "disabled";
 		};
 	};
 
@@ -2692,6 +2717,11 @@
 		status = "ok";
 	};
 
+	last_logs@ffcc0000 {
+		compatible = "rd_last_logs";
+		label = "last_logs";
+		memory-region = "log";
+	};
 };
 
 #include "diwali-gdsc.dtsi"
@@ -2794,6 +2824,24 @@
 #include "parrot-dma-heaps.dtsi"
 #include "msm-arm-smmu-parrot.dtsi"
 #include "parrot-walt.dtsi"
+
+&tlmm {
+	pcb_type_pins: pcb_type_pins {
+		pcb_type_default: pcb_type_default {
+			mux {
+				pins = "gpio126";
+				function = "gpio";
+			};
+
+			config {
+				pins = "gpio126";
+				drive-strength = <2>;
+				bias-pull-down;         /* PULL DOWN */
+				input-enable;
+			};
+		};
+	};
+};
 
 &qupv3_se3_2uart {
 	status = "ok";
