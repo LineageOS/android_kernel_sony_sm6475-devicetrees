@@ -1,0 +1,19 @@
+DTC_INCLUDE += $(srctree)/../sm6475-modules/qcom/opensource/audio-kernel/include
+
+audio-dtbo := \
+	parrot-somc-elbe-audio.dtbo \
+	parrot-somc-elbe-audio-qrd-wcn6755.dtbo
+
+dtbo-y += $(audio-dtbo)
+
+quiet_cmd_copy_dtbo = COPY    $@
+      cmd_copy_dtbo = mkdir -p $(dir $@) && cp -f $< $@
+
+targets += $(addprefix ../../qcom/audio/,$(audio-dtbo))
+
+$(obj)/../../qcom/audio/%.dtbo: $(obj)/%.dtbo FORCE
+	$(call if_changed,copy_dtbo)
+
+always-y := $(dtb-y) $(dtbo-y) $(addprefix ../../qcom/audio/,$(audio-dtbo))
+subdir-y	:= $(dts-dirs)
+clean-files	:= *.dtb *.dtbo
