@@ -1,0 +1,29 @@
+&lpass_cdc {
+	qcom,num-macros = <3>;
+
+	lpass-cdc-clk-rsc-mngr {
+        /delete-property/ qcom,wsa_mclk_mode_muxsel;
+	    clock-names = "tx_core_clk", "rx_core_clk",
+		    "va_core_clk", "rx_tx_core_clk";
+	    clocks = <&clock_audio_tx_1 0>, <&clock_audio_rx_1 0>,
+		    <&clock_audio_va_1 0>, <&clock_audio_rx_tx 0>;
+	};
+};
+
+&wcd938x_tx_slave {
+	status = "disabled";
+};
+
+&wcd937x_tx_slave {
+    status = "okay";
+};
+
+&wcd938x_rx_slave {
+	status = "disabled";
+}
+
+&wcd937x_rx_slave {
+    status = "okay";
+};
+
+
