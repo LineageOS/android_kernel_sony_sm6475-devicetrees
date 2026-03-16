@@ -542,6 +542,7 @@
 				pins = "gpio22", "gpio23";
 				drive-strength = <2>;
 				bias-pull-down;
+				input-enable;
 			};
 		};
 	};
@@ -1681,7 +1682,7 @@
 
 				config {
 					pins = "gpio12";
-					drive-strength = <2>;
+					drive-strength = <8>;
 					bias-pull-down;
 				};
 			};
@@ -1709,7 +1710,7 @@
 
 				config {
 					pins = "gpio13";
-					drive-strength = <2>;
+					drive-strength = <8>;
 					bias-pull-down;
 				};
 			};
@@ -1737,8 +1738,7 @@
 
 				config {
 					pins = "gpio12", "gpio13";
-					drive-strength = <2>;
-					bias-disable;
+					drive-strength = <8>;
 				};
 			};
 
@@ -1823,19 +1823,19 @@
 			clk {
 				pins = "sdc2_clk";
 				bias-disable;
-				drive-strength = <16>;
+				drive-strength = <10>;
 			};
 
 			cmd {
 				pins = "sdc2_cmd";
 				bias-pull-up;
-				drive-strength = <10>;
+				drive-strength = <8>;
 			};
 
 			data {
 				pins = "sdc2_data";
 				bias-pull-up;
-				drive-strength = <10>;
+				drive-strength = <8>;
 			};
 
 			sd-cd {
