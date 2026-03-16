@@ -1,0 +1,9 @@
+/dts-v1/;
+/plugin/;
+
+#include "../../qcom/nfc/nxp/parrot-nfc-qrd.dts"
+#include "elbe-nfc.dtsi"
+
+/ {
+	qcom,board-id = <0x1000B 2>;
+};

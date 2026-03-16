@@ -1,0 +1,6 @@
+/dts-v1/;
+/plugin/;
+
+#include "../../qcom/display/display/parrot-sde-display-qrd-overlay.dts"
+#include "dsi-panel-samsung-dsc-fhd-plus-cmd.dtsi"
+#include "parrot-somc-elbe-display.dtsi"

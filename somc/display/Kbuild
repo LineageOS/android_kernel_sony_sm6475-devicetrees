@@ -1,0 +1,13 @@
+dtbo-y += parrot-somc-elbe-display.dtbo
+
+quiet_cmd_copy_dtbo = COPY    $@
+      cmd_copy_dtbo = mkdir -p $(dir $@) && cp -f $< $@
+
+targets += ../../qcom/display/display/parrot-somc-elbe-display.dtbo
+
+$(obj)/../../qcom/display/display/parrot-somc-elbe-display.dtbo: $(obj)/parrot-somc-elbe-display.dtbo FORCE
+	$(call if_changed,copy_dtbo)
+
+always-y	:= $(dtb-y) $(dtbo-y) ../../qcom/display/display/parrot-somc-elbe-display.dtbo
+subdir-y	:= $(dts-dirs)
+clean-files	:= *.dtb *.dtbo
