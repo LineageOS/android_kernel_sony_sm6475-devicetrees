@@ -1,0 +1,19 @@
+&soc {
+	gpio_keys {
+		pinctrl-0 = <&key_vol_up_default &key_cam_default>;
+
+		cam_key {
+			label = "cam_key";
+			gpios = <&tlmm 128 GPIO_ACTIVE_LOW>;
+			linux,input-type = <1>;
+			linux,code = <766>;
+			gpio-key,wakeup;
+			debounce-interval = <15>;
+			linux,can-disable;
+		};
+
+		vol_up {
+			linux,code = <KEY_VOLUMEDOWN>;
+		};
+	};
+};
