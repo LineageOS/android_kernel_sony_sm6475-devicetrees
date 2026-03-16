@@ -1,0 +1,12 @@
+/dts-v1/;
+/plugin/;
+
+#include "../qcom/parrot-qrd-wcn6755-overlay.dts"
+#include "elbe-fingerprint.dtsi"
+#include "elbe-input.dtsi"
+#include "elbe-touch.dtsi"
+#include "elbe-usb.dtsi"
+
+/ {
+    model = "Sony Mobile Communications - elbe";
+};

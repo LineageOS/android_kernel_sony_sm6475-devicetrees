@@ -1,0 +1,30 @@
+&apps_rsc_drv2 {
+	rpmh-regulator-ldob8 {
+		status = "disabled";
+	};
+
+	rpmh-regulator-ldog2 {
+		status = "disabled";
+	};
+
+	rpmh-regulator-ldog3 {
+		status = "disabled";
+	};
+
+	rpmh-regulator-ldog4 {
+		status = "disabled";
+	};
+
+	rpmh-regulator-ldog5 {
+		status = "disabled";
+	};
+
+	rpmh-regulator-ldog6 {
+		status = "disabled";
+	};
+};
+
+&pm6450_l28 {
+	regulator-min-microvolt = <1700000>;
+	qcom,init-voltage = <1800000>;
+};
