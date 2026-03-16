@@ -2553,6 +2553,7 @@
 			#address-cells = <2>;
 			#size-cells = <0>;
 			qcom,can-sleep;
+			status = "disabled";
 		};
 	};
 
@@ -2794,6 +2795,24 @@
 #include "parrot-dma-heaps.dtsi"
 #include "msm-arm-smmu-parrot.dtsi"
 #include "parrot-walt.dtsi"
+
+&tlmm {
+	pcb_type_pins: pcb_type_pins {
+		pcb_type_default: pcb_type_default {
+			mux {
+				pins = "gpio126";
+				function = "gpio";
+			};
+
+			config {
+				pins = "gpio126";
+				drive-strength = <2>;
+				bias-pull-down;         /* PULL DOWN */
+				input-enable;
+			};
+		};
+	};
+};
 
 &qupv3_se3_2uart {
 	status = "ok";
