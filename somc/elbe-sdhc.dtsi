@@ -1,0 +1,6 @@
+&sdhc_2 {
+    /delete-property/ no-sdio;
+    /delete-property/ no-mmc;
+
+    cd-gpios = <&tlmm 107 GPIO_ACTIVE_HIGH>;
+};
