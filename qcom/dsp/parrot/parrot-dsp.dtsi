@@ -174,7 +174,7 @@
 			qcom,nsessions = <1>;
 			dma-coherent;
 
-			pd-type = <6>; /* CPZ_USERPD */
+			pd-type = <6>;
 		};
 
 		compute-cb@10 {
