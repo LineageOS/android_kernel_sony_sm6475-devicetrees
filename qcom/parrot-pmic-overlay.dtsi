@@ -415,7 +415,6 @@
 		#size-cells = <0>;
 
 		pinctrl-names = "default";
-		pinctrl-0 = <&pm8010i_active>;
 
 		pm8010-chip@900 {
 			compatible = "qcom,pm8008-chip";
