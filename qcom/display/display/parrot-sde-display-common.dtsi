@@ -26,6 +26,7 @@
 #include "dsi-panel-vtdr6130-dsc-fhd-plus-120hz-video.dtsi"
 #include "dsi-panel-ft8726-dsc-fhd-plus-video.dtsi"
 #include "dsi-panel-vtdr6130-dsc-fhd-plus-90hz-video.dtsi"
+#include "dsi-panel-samsung-dsc-fhd-plus-cmd.dtsi"
 #include "parrot-sde-display-pinctrl.dtsi"
 
 &soc {
@@ -78,25 +79,37 @@
 			reg = <0>;
 			qcom,supply-name = "vddio";
 			qcom,supply-min-voltage = <1800000>;
-			qcom,supply-max-voltage = <2000000>;
+			qcom,supply-max-voltage = <1800000>;
 			qcom,supply-enable-load = <200000>;
 			qcom,supply-disable-load = <80>;
-			qcom,supply-post-on-sleep = <20>;
+			qcom,supply-post-on-sleep = <0>;
+			qcom,supply-post-off-sleep = <10>;
 		};
 
 		qcom,panel-supply-entry@1 {
 			reg = <1>;
+			qcom,supply-name = "vddr";
+			qcom,supply-min-voltage = <1800000>;
+			qcom,supply-max-voltage = <1800000>;
+			qcom,supply-enable-load = <200000>;
+			qcom,supply-disable-load = <80>;
+			qcom,supply-post-on-sleep = <20>;
+			qcom,supply-post-off-sleep = <10>;
+		};
+
+		qcom,panel-supply-entry@2 {
+			reg = <2>;
 			qcom,supply-name = "vci";
 			qcom,supply-min-voltage = <3000000>;
 			qcom,supply-max-voltage = <3300000>;
 			qcom,supply-enable-load = <10000>;
 			qcom,supply-disable-load = <0>;
-			qcom,supply-post-on-sleep = <0>;
-			qcom,supply-post-off-sleep = <2>;
+			qcom,supply-post-on-sleep = <25>;
+			qcom,supply-post-off-sleep = <20>;
 		};
 
-		qcom,panel-supply-entry@2 {
-			reg = <2>;
+		qcom,panel-supply-entry@3 {
+			reg = <3>;
 			qcom,supply-name = "lab";
 			qcom,supply-min-voltage = <4600000>;
 			qcom,supply-max-voltage = <6000000>;
@@ -104,17 +117,7 @@
 			qcom,supply-disable-load = <0>;
 		};
 
-		qcom,panel-supply-entry@3 {
-			reg = <3>;
-			qcom,supply-name = "ibb";
-			qcom,supply-min-voltage = <4600000>;
-			qcom,supply-max-voltage = <6000000>;
-			qcom,supply-enable-load = <0>;
-			qcom,supply-disable-load = <0>;
-			qcom,supply-post-on-sleep = <20>;
-		};
-
-		qcom,panel-supply-entry@4 {
+		/*qcom,panel-supply-entry@4 {
 			reg = <4>;
 			qcom,supply-name = "extvdd";
 			qcom,supply-min-voltage = <1200000>;
@@ -123,7 +126,7 @@
 			qcom,supply-disable-load = <80>;
 			qcom,supply-post-on-sleep = <0>;
 			qcom,supply-post-off-sleep = <2>;
-		};
+		};*/
 	};
 
 	sde_dsi: qcom,dsi-display-primary {
@@ -159,6 +162,31 @@
 		timing@0 {
 			qcom,mdss-dsi-panel-phy-timings = [00 00 00 00 12 17 04
 				19 03 02 04 00 00 00];
+			qcom,display-topology = <1 1 1>;
+			qcom,default-topology-index = <0>;
+		};
+	};
+};
+
+&dsi_samsung_amoled_cmd {
+	qcom,dsi-select-clocks = "pll_byte_clk0", "pll_dsi_clk0";
+
+	qcom,esd-check-enabled;
+	qcom,mdss-dsi-panel-status-check-mode = "reg_read";
+	qcom,mdss-dsi-panel-status-command = [06 01 00 01 00 00 01 0a];
+	qcom,mdss-dsi-panel-status-command-state = "dsi_lp_mode";
+	qcom,mdss-dsi-panel-status-value = <0x9C>;
+	qcom,mdss-dsi-panel-status-read-length = <1>;
+	qcom,mdss-dsi-display-timings {
+		timing@0 {
+			qcom,mdss-dsi-panel-phy-timings = [00 1f 0b 0a 16 21 07
+				07 07 02 04 00 19 0c];
+			qcom,display-topology = <1 1 1>;
+			qcom,default-topology-index = <0>;
+		};
+		timing@1 {
+			qcom,mdss-dsi-panel-phy-timings = [00 1d 09 08 16 21 07
+				07 07 02 04 00 17 0c];
 			qcom,display-topology = <1 1 1>;
 			qcom,default-topology-index = <0>;
 		};

@@ -107,7 +107,7 @@
 			dmas = <&gpi_dma0 0 0 3 64 0>,
 				<&gpi_dma0 1 0 3 64 0>;
 			dma-names = "tx", "rx";
-			status = "disabled";
+			status = "ok";
 		};
 
 		qupv3_se0_spi: spi@980000 {
@@ -202,7 +202,7 @@
 				<&gpi_dma0 1 2 3 64 0>;
 			dma-names = "tx", "rx";
 			qcom,shared;
-			status = "disabled";
+			status = "ok";
 		};
 
 		qupv3_se2_spi: spi@988000 {
