@@ -1,0 +1,108 @@
+&pm6150l_gpios {
+	get_stageid_adc_kb {
+		get_stageid_adc_kb_default: get_stageid_adc_kb_default {
+			pins = "gpio6";
+			bias-high-impedance;
+		};
+	};
+
+	display_panel_supply_ctrl {
+		display_panel_vddr_default: display_panel_vddr_default {
+			pins = "gpio11";
+			function = "normal";
+			input-disable;
+			output-enable;
+			bias-disable;
+			power-source = <0>;
+			qcom,drive-strength = <2>;
+		};
+	};
+};
+
+&pm6150l_adc_tm {
+	/delete-node/ pa_therm2;
+	/delete-node/ wide_rfc_therm;
+
+	pa_therm1 {
+		reg = <0>;
+		io-channels = <&pm6150l_vadc ADC5_AMUX_THM1_100K_PU>;
+		qcom,ratiometric;
+		qcom,hw-settle-time-us = <200>;
+	};
+
+	pa_therm0 {
+		reg = <1>;
+		io-channels = <&pm6150l_vadc ADC5_AMUX_THM3_100K_PU>;
+		qcom,ratiometric;
+		qcom,hw-settle-time-us = <200>;
+	};
+
+	msm_therm {
+		reg = <3>;
+		io-channels = <&pm6150l_vadc ADC5_AMUX_THM2_100K_PU>;
+		qcom,ratiometric;
+		qcom,hw-settle-time-us = <200>;
+	};
+};
+
+&pm6150l_vadc {
+	pinctrl-0 = <&ufs_therm_default &get_stageid_adc_kb_default &wide_rfc_therm_default>;
+
+	/delete-node/ pa_therm1;
+	/delete-node/ pa_therm2;
+	/delete-node/ wide_rfc_therm;
+
+	pa_therm1 {
+		reg = <ADC5_AMUX_THM1_100K_PU>;
+		label = "pa_therm1";
+		qcom,ratiometric;
+		qcom,hw-settle-time = <200>;
+		qcom,pre-scaling = <1 1>;
+	};
+
+	pa_therm0 {
+		reg = <ADC5_AMUX_THM3_100K_PU>;
+		label = "pa_therm0";
+		qcom,ratiometric;
+		qcom,hw-settle-time = <200>;
+		qcom,pre-scaling = <1 1>;
+	};
+
+	get_stageid_adc_kb {
+		reg = <ADC5_GPIO2_100K_PU>;
+		label = "get_stageid_adc_kb";
+		qcom,ratiometric;
+		qcom,hw-settle-time = <200>;
+		qcom,pre-scaling = <1 1>;
+	};
+
+	msm_therm {
+		reg = <ADC5_AMUX_THM2_100K_PU>;
+		label = "msm_therm";
+		qcom,ratiometric;
+		qcom,hw-settle-time = <200>;
+		qcom,pre-scaling = <1 1>;
+	};
+};
+
+&soc {
+	display_gpio_regulator@1 {
+		gpio = <&pm6150l_gpios 9 1>;
+		enable-active-low;
+	};
+
+	display_panel_vddr: display_gpio_regulator@4 {
+		compatible = "qti-regulator-fixed";
+		regulator-name = "display_panel_vddr";
+		regulator-min-microvolt = <1800000>;
+		regulator-max-microvolt = <1800000>;
+		regulator-enable-ramp-delay = <233>;
+		gpio = <&pm6150l_gpios 11 1>;
+		enable-active-low;
+		regulator-boot-on;
+		proxy-supply = <&display_panel_vddr>;
+		qcom,proxy-consumer-enable;
+		pinctrl-names = "default";
+		pinctrl-0 = <&display_panel_vddr_default>;
+	};
+};
