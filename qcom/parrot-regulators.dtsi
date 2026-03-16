@@ -260,6 +260,7 @@
 			<RPMH_REGULATOR_MODE_LPM
 			RPMH_REGULATOR_MODE_HPM>;
 		qcom,mode-threshold-currents = <0 30000>;
+		status = "disabled";
 		L8B:
 		pm6450_l8: regulator-pm6450-l8 {
 			regulator-name = "pm6450_l8";
@@ -625,9 +626,9 @@
 		pm6450_l28: regulator-pm6450-l28 {
 			regulator-name = "pm6450_l28";
 			qcom,set = <RPMH_REGULATOR_SET_ALL>;
-			regulator-min-microvolt = <2700000>;
+			regulator-min-microvolt = <1700000>;
 			regulator-max-microvolt = <3544000>;
-			qcom,init-voltage = <2700000>;
+			qcom,init-voltage = <1800000>;
 			qcom,init-mode = <RPMH_REGULATOR_MODE_HPM>;
 		};
 	};
@@ -880,6 +881,7 @@
 			<RPMH_REGULATOR_MODE_LPM
 			RPMH_REGULATOR_MODE_HPM>;
 		qcom,mode-threshold-currents = <0 30000>;
+		status = "disabled";
 		L2G:
 		pmr735a_l2: regulator-pmr735a-l2 {
 			regulator-name = "pmr735a_l2";
@@ -899,6 +901,7 @@
 			<RPMH_REGULATOR_MODE_LPM
 			RPMH_REGULATOR_MODE_HPM>;
 		qcom,mode-threshold-currents = <0 30000>;
+		status = "disabled";
 		L3G:
 		pmr735a_l3: regulator-pmr735a-l3 {
 			regulator-name = "pmr735a_l3";
@@ -918,6 +921,7 @@
 			<RPMH_REGULATOR_MODE_LPM
 			RPMH_REGULATOR_MODE_HPM>;
 		qcom,mode-threshold-currents = <0 10000>;
+		status = "disabled";
 		L4G:
 		pmr735a_l4: regulator-pmr735a-l4 {
 			regulator-name = "pmr735a_l4";
@@ -937,6 +941,7 @@
 			<RPMH_REGULATOR_MODE_LPM
 			RPMH_REGULATOR_MODE_HPM>;
 		qcom,mode-threshold-currents = <0 30000>;
+		status = "disabled";
 		L5G:
 		pmr735a_l5: regulator-pmr735a-l5 {
 			regulator-name = "pmr735a_l5";
@@ -956,6 +961,7 @@
 			<RPMH_REGULATOR_MODE_LPM
 			RPMH_REGULATOR_MODE_HPM>;
 		qcom,mode-threshold-currents = <0 30000>;
+		status = "disabled";
 		L6G:
 		pmr735a_l6: regulator-pmr735a-l6 {
 			regulator-name = "pmr735a_l6";
