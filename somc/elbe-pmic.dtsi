@@ -1,0 +1,3 @@
+&pmr735a_debug {
+    status = "disabled";
+};
