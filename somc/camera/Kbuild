@@ -1,0 +1,19 @@
+DTC_INCLUDE += $(srctree)/../sm6475-modules/qcom/opensource/camera-kernel
+
+camera-dtbo := \
+	parrot-somc-elbe-camera.dtbo \
+	parrot-somc-elbe-camera-sensor-qrd.dtbo
+
+dtbo-y += $(camera-dtbo)
+
+quiet_cmd_copy_dtbo = COPY    $@
+      cmd_copy_dtbo = mkdir -p $(dir $@) && cp -f $< $@
+
+targets += $(addprefix ../../qcom/camera/,$(camera-dtbo))
+
+$(obj)/../../qcom/camera/%.dtbo: $(obj)/%.dtbo FORCE
+	$(call if_changed,copy_dtbo)
+
+always-y := $(dtb-y) $(dtbo-y) $(addprefix ../../qcom/camera/,$(camera-dtbo))
+subdir-y	:= $(dts-dirs)
+clean-files	:= *.dtb *.dtbo
