@@ -1,0 +1,7 @@
+&qupv3_se6_i2c {
+	qcom,clk-freq-out = <400000>;
+
+	nq@28 {
+		qcom,sn-cold-reset = <&tlmm 57 0x00>;
+	};
+};
