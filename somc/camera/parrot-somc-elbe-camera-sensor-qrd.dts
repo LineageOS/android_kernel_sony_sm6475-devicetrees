@@ -1,0 +1,6 @@
+/dts-v1/;
+/plugin/;
+
+#include "../../qcom/camera/parrot-camera-sensor-qrd.dts"
+#include "parrot-somc-elbe-camera-sensor-qrd.dtsi"
+#include "regulator-wl2868c.dtsi"
