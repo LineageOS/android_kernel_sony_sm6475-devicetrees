@@ -1,0 +1,14 @@
+&tlmm {
+	key_cam_default: key_cam_default {
+		mux {
+			pins = "gpio128";
+			function = "gpio";
+		};
+
+		config {
+			pins = "gpio128";
+			drive-strength = <2>;
+			bias-pull-up;
+		};
+	};
+};

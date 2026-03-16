@@ -1,0 +1,10 @@
+/dts-v1/;
+
+#include "../qcom/parrot.dts"
+#include "elbe-pinctrl.dtsi"
+#include "elbe-reserved-memory.dtsi"
+#include "elbe-usb.dtsi"
+
+/ {
+    model = "Sony Mobile Communications - elbe";
+};
