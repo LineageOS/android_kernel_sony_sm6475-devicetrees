@@ -8,6 +8,8 @@
 
 #include "parrot-pmic-overlay.dtsi"
 #include "parrot-thermal-overlay.dtsi"
+#include "touch.dtsi"
+#include "parrot-fingerprint.dtsi"
 
 &soc {
 	gpio_keys {
@@ -15,24 +17,38 @@
 		label = "gpio-keys";
 
 		pinctrl-names = "default";
-		pinctrl-0 = <&key_vol_up_default>;
+		pinctrl-0 = <&key_vol_up_default &key_cam_default>;
 
-		vol_up {
-			label = "volume_up";
+		vol_down {
+			label = "volume_down";
 			gpios = <&pm6450_gpios 1 GPIO_ACTIVE_LOW>;
 			linux,input-type = <1>;
-			linux,code = <KEY_VOLUMEUP>;
+			linux,code = <KEY_VOLUMEDOWN>;
+			gpio-key,wakeup;
+			debounce-interval = <15>;
+			linux,can-disable;
+		};
+
+		cam_key {
+			label = "cam_key";
+			gpios = <&tlmm 128 GPIO_ACTIVE_LOW>;
+			linux,input-type = <1>;
+			linux,code = <766>;
 			gpio-key,wakeup;
 			debounce-interval = <15>;
 			linux,can-disable;
 		};
 	};
+        nxp_reset {
+		compatible = "sony,coldreset-nfcgpio";
+		nfcrst-gpio = <&tlmm 57 GPIO_ACTIVE_LOW>;
+	};
 };
 
 &usb2_phy0 {
 	qcom,param-override-seq = <
-			0x83 0x6c
-			0xcb 0x70
+			0x85 0x6c
+			0xCA 0x70
 			0x1e 0x74
 			0x03 0x78>;
 };
@@ -68,7 +84,7 @@
 	pinctrl-0 = <&sdc2_on>;
 	pinctrl-1 = <&sdc2_off>;
 
-	cd-gpios = <&tlmm 107 GPIO_ACTIVE_LOW>;
+	cd-gpios = <&tlmm 107 GPIO_ACTIVE_HIGH>;
 };
 
 &ufsphy_mem {
@@ -125,6 +141,11 @@
 	status = "ok";
 };
 
+&audio_cma_mem{
+	size = <0x0 0x1400000>;
+};
+
+/*
 &qupv3_se9_spi {
 	#address-cells = <1>;
 	#size-cells = <0>;
@@ -169,3 +190,5 @@
 			&tlmm 13 0 &tlmm 64 0 &tlmm 65 0x2008>;
 	};
 };
+*/
+
