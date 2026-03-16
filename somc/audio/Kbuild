@@ -1,0 +1,12 @@
+DTC_INCLUDE += $(srctree)/../sm6475-modules/qcom/opensource/audio-kernel/include
+
+dtbo-y += elbe-audio.dtbo
+
+targets += ../../qcom/audio/elbe-audio.dtbo
+always-y := $(dtb-y) $(dtbo-y) ../../qcom/audio/elbe-audio.dtbo
+subdir-y := $(dts-dirs)
+
+$(obj)/../../qcom/audio/elbe-audio.dtbo: $(obj)/elbe-audio.dtbo FORCE
+	$(call if_changed,copy_dtbo)
+
+clean-files := *.dtb *.dtbo
