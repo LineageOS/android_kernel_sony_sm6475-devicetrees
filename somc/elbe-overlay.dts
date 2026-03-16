@@ -1,0 +1,8 @@
+/dts-v1/;
+/plugin/;
+
+#include "../qcom/parrot-qrd-wcn6755-overlay.dts"
+
+/ {
+    model = "Sony Mobile Communications - elbe";
+};
