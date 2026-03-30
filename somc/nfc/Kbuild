@@ -1,15 +1,7 @@
-nfc-dtbo := \
+dtbo-y += \
 	parrot-somc-elbe-nfc.dtbo \
 	parrot-somc-elbe-nfc-qrd.dtbo
 
-quiet_cmd_copy_dtbo = COPY    $@
-      cmd_copy_dtbo = mkdir -p $(dir $@) && cp -f $< $@
-
-targets += $(addprefix ../../qcom/nfc/,$(nfc-dtbo))
-
-$(obj)/../../qcom/nfc/%.dtbo: $(obj)/%.dtbo FORCE
-	$(call if_changed,copy_dtbo)
-
-always-y	:= $(dtb-y) $(dtbo-y) $(addprefix ../../qcom/nfc/,$(nfc-dtbo))
+always-y	:= $(dtb-y) $(dtbo-y)
 subdir-y	:= $(dts-dirs)
 clean-files	:= *.dtb *.dtbo
