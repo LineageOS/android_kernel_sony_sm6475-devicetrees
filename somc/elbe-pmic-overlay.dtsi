@@ -85,6 +85,10 @@
 	};
 };
 
+&pmr735a_spmi {
+	status = "disabled";
+};
+
 &thermal_zones {
 	/delete-node/ sys-therm-2;
 	/delete-node/ sys-therm-4;
